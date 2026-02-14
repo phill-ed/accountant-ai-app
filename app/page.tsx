@@ -16,6 +16,8 @@ import {
   FileSignature, Printer, Share2, Filter as FilterIcon, MoreVertical, Download as DownloadIcon
 } from 'lucide-react'
 
+import ReceiptScanner from './receipts/page'
+
 // ==================== TYPE DEFINITIONS ====================
 
 interface Transaction {
@@ -821,46 +823,8 @@ export default function AccountantAIApp() {
             </>
           )}
 
-          {/* Receipts */}
-          {activeTab === 'receipts' && (
-            <div style={{ background: 'white', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#1e293b' }}>Receipt Management</h3>
-                <button style={{ background: '#3b82f6', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Upload size={18} /> Upload Receipt
-                </button>
-              </div>
-              
-              <div style={{ border: '2px dashed #e2e8f0', borderRadius: '12px', padding: '3rem', textAlign: 'center', marginBottom: '2rem' }}>
-                <Upload size={48} style={{ color: '#94a3b8', marginBottom: '1rem' }} />
-                <h4 style={{ marginBottom: '0.5rem', color: '#374151' }}>Upload Receipt</h4>
-                <p style={{ color: '#6b7280', marginBottom: '1rem' }}>Drag and drop receipt images here, or click to browse</p>
-                <p style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Supports: JPG, PNG, PDF up to 10MB</p>
-              </div>
-
-              <h4 style={{ fontSize: '1rem', fontWeight: 600, color: '#1e293b', marginBottom: '1rem' }}>Recent Receipts</h4>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
-                {receipts.map(receipt => (
-                  <div key={receipt.id} style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '1rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
-                      <div style={{ width: 40, height: 40, borderRadius: '8px', background: 'rgba(37, 99, 235, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <Receipt size={20} style={{ color: '#2563eb' }} />
-                      </div>
-                      <span style={{ fontSize: '0.75rem', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', padding: '0.125rem 0.5rem', borderRadius: '4px' }}>
-                        {Math.round(receipt.confidence * 100)}% match
-                      </span>
-                    </div>
-                    <div style={{ fontWeight: 500, marginBottom: '0.25rem' }}>{receipt.vendor}</div>
-                    <div style={{ fontSize: '0.75rem', color: '#6b7280', marginBottom: '0.5rem' }}>{receipt.date}</div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontSize: '0.75rem', background: 'rgba(37, 99, 235, 0.1)', color: '#2563eb', padding: '0.25rem 0.5rem', borderRadius: '4px' }}>{receipt.category}</span>
-                      <span style={{ fontWeight: 600 }}>{formatCurrency(receipt.total)}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          {/* Receipts - Real OCR Scanner */}
+          {activeTab === 'receipts' && <ReceiptScanner />}
 
           {/* Financial Reports */}
           {activeTab === 'reports' && (
